@@ -48,6 +48,10 @@ spec:
             value: "{{ .Values.postgres.database_user }}"
           - name: POSTGRES_PORT
             value: "{{ .Values.postgres.database_port }}"
+          {{- range .Values.backStageEnvSecrets }}
+          - name: {{ .name }}
+            value: {{ .value }}
+          {{- end }}
           ports:
             - name: http
               containerPort: {{ .Values.service.targetPort }}

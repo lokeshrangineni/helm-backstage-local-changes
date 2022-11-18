@@ -2,9 +2,9 @@ replicaCount: 1
 
 image:
   pullPolicy: Always
-  registry: ghcr.io
-  repository: redhat-developer/redhat-backstage-build
-  version: "latest"
+  registry: quay.io
+  repository: lrangine/backstage-sample-app
+  version: "backstage-k8-1"
 
 imagePullSecrets: []
 nameOverride: ""
@@ -102,7 +102,7 @@ securityContext: {}
 ## There is a secret created via the template/
 backstage:
   companyname: "Red Hat Backstage Helm Chart"
-  baseUrl: ""
+  baseUrl: "https://lokesh-helm-backstage.apps.mw-ocp4.cloud.lab.eng.bos.redhat.com"
 
   ## Override Catalog with here
   catalog:

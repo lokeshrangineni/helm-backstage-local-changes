@@ -22,6 +22,8 @@ Once the chart has been added, install one of the available charts:
 
 ```shell
 helm upgrade -i <release_name> redhat-developer-backstage/backstage
+Example:
+helm upgrade -i lokesh-helm-backstage redhat-developer-backstage/backstage
 ```
 
 ### Installing from an OCI Registry
@@ -33,6 +35,16 @@ Install one of the available charts:
 ```shell
 helm upgrade -i oci://ghcr.io/redhat-developer/helm-backstage/backstage --version=<version>
 ```
+
+
+### Installing from local helm-backstage chart
+
+cd $HOME/Src/helm-backstage/helm-backstage/charts
+#Installing the chart
+helm install -f env-secret-values.yaml lokesh-helm-backstage-local backstage
+
+#Uninstalling the chart.
+helm uninstall lokesh-helm-backstage-local
 
 ## Backstage Chart
 
