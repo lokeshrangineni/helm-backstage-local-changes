@@ -1,28 +1,22 @@
-
 # Janus-IDP Backstage Helm Chart
 
+{{ template "chart.deprecationWarning" . }}
+
 [![Artifact Hub](https://img.shields.io/endpoint?url=https://artifacthub.io/badge/repository/janus-idp&style=flat-square)](https://artifacthub.io/packages/search?repo=janus-idp)
-![Version: 2.2.1](https://img.shields.io/badge/Version-2.2.1-informational?style=flat-square)
-![Type: application](https://img.shields.io/badge/Type-application-informational?style=flat-square)
+{{ template "chart.versionBadge" . }}
+{{ template "chart.typeBadge" . }}
 
-A Helm chart for deploying a Backstage application
+{{ template "chart.description" . }}
 
-**Homepage:** <https://janus-idp.io>
+{{ template "chart.homepageLine" . }}
 
-## Maintainers
+{{ template "chart.maintainersSection" . }}
 
-| Name | Email | Url |
-| ---- | ------ | --- |
-| Janus-IDP |  | <https://janus-idp.io> |
-
-## Source Code
-
-* <https://github.com/janus-idp/helm-backstage>
-* <https://github.com/janus-idp/backstage-showcase>
+{{ template "chart.sourcesSection" . }}
 
 ---
 
-[Janus-IDP](https://janus-idp.io/) Backstage chart is an opinionated flavor of the upstream chart located at [backstage/charts](https://github.com/backstage/charts). It extends the upstream chart with additional OpenShift specific functionality and provides oppinionated values.
+[Janus-IDP](https://janus-idp.io/) Backstage chart is an oppinionated flavor of the upstream chart located at [backstage/charts](https://github.com/backstage/charts). It extends the upstream chart with additional OpenShift specific functionality and provides oppinionated values.
 
 [Backstage](https://backstage.io) is an open platform for building developer portals. Powered by a centralized software catalog, Backstage restores order to your microservices and infrastructure and enables your product teams to ship high-quality code quickly — without compromising autonomy.
 
@@ -115,36 +109,9 @@ helm uninstall my-backstage-release
 
 The command removes all the Kubernetes components associated with the chart and deletes the release.
 
-## Requirements
+{{ template "chart.requirementsSection" . }}
 
-Kubernetes: `>= 1.19.0-0`
-
-| Repository | Name | Version |
-|------------|------|---------|
-| https://backstage.github.io/charts | upstream(backstage) | 1.1.2 |
-| https://charts.bitnami.com/bitnami | common | 2.4.0 |
-
-## Values
-
-| Key | Description | Type | Default |
-|-----|-------------|------|---------|
-| global.clusterRouterBase | Shorthand for users who do not want to specify a custom HOSTNAME. Used ONLY with the DEFAULT upstream.backstage.appConfig value and with OCP Route enabled. | string | `"apps.example.com"` |
-| global.host | Custom hostname shorthand, overrides `global.clusterRouterBase`, `upstream.ingress.host`, `route.host`, and url values in `upstream.backstage.appConfig` | string | `""` |
-| route | OpenShift Route parameters | object | `{"annotations":{},"enabled":true,"host":"{{ .Values.global.host }}","path":"/","tls":{"caCertificate":"","certificate":"","destinationCACertificate":"","enabled":true,"insecureEdgeTerminationPolicy":"Redirect","key":"","termination":"edge"},"wildcardPolicy":"None"}` |
-| route.annotations | Route specific annotations | object | `{}` |
-| route.enabled | Enable the creation of the route resource | bool | `true` |
-| route.host | Set the host attribute to a custom value. If not set, OpenShift will generate it, please make sure to match your baseUrl | string | `"{{ .Values.global.host }}"` |
-| route.path | Path that the router watches for, to route traffic for to the service. | string | `"/"` |
-| route.tls | Route TLS parameters <br /> Ref: https://docs.openshift.com/container-platform/4.9/networking/routes/secured-routes.html | object | `{"caCertificate":"","certificate":"","destinationCACertificate":"","enabled":true,"insecureEdgeTerminationPolicy":"Redirect","key":"","termination":"edge"}` |
-| route.tls.caCertificate | Cert authority certificate contents. Optional | string | `""` |
-| route.tls.certificate | Certificate contents | string | `""` |
-| route.tls.destinationCACertificate | Contents of the ca certificate of the final destination. <br /> When using reencrypt termination this file should be provided in order to have routers use it for health checks on the secure connection. If this field is not specified, the router may provide its own destination CA and perform hostname validation using the short service name (service.namespace.svc), which allows infrastructure generated certificates to automatically verify. | string | `""` |
-| route.tls.enabled | Enable TLS configuration for the host defined at `route.host` parameter | bool | `true` |
-| route.tls.insecureEdgeTerminationPolicy | Indicates the desired behavior for insecure connections to a route. <br /> While each router may make its own decisions on which ports to expose, this is normally port 80. The only valid values are None, Redirect, or empty for disabled. | string | `"Redirect"` |
-| route.tls.key | Key file contents | string | `""` |
-| route.tls.termination | Specify TLS termination. | string | `"edge"` |
-| route.wildcardPolicy | Wildcard policy if any for the route. Currently only 'Subdomain' or 'None' is allowed. | string | `"None"` |
-| upstream | Upstream Backstage [chart configuration](https://github.com/backstage/charts/blob/main/charts/backstage/values.yaml) | object | Use Openshift compatible settings |
+{{ template "chart.valuesSection" . }}
 
 ## Opinionated Backstage deployment
 
@@ -213,9 +180,9 @@ upstream:
   backstage:
     appConfig:
       app:
-        baseUrl: 'https://{{- include "janus-idp.hostname" . }}'
+        baseUrl: 'https://{{"{{"}}- include "janus-idp.hostname" . {{"}}"}}'
       backend:
-        baseUrl: 'https://{{- include "janus-idp.hostname" . }}'
+        baseUrl: 'https://{{"{{"}}- include "janus-idp.hostname" . {{"}}"}}'
         cors:
-          origin: 'https://{{- include "janus-idp.hostname" . }}'
+          origin: 'https://{{"{{"}}- include "janus-idp.hostname" . {{"}}"}}'
 ```
